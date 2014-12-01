@@ -85,14 +85,14 @@ public class loginPage extends JPanel {
 		
 	
 		
-//		 System.out.println("Working Directory = " +
-//	              System.getProperty("user.dir"));
-//		backgroundImage = new ImageIcon(".\\loginPageBackground.jpg");
-//		
-//		JLabel image = new JLabel(backgroundImage);
-//		this.add(image);
+		
 		
 		this.addComponents();
+
+		backgroundImage = new ImageIcon(".\\loginPageBackground.jpg");
+		
+		JLabel image = new JLabel(backgroundImage);
+		this.add(image);
 		
 	}
 	
