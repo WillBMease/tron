@@ -44,13 +44,14 @@ public class TronPlayer extends JFrame implements Runnable {
 	public void setGameOn(boolean b) {
 		gameOn = true;
 	}
-	public TronPlayer(String hostname, int port) {
+	public TronPlayer(String hostname, int port, String name) {
 		super("Tron");
 		
 		setFocusable(true);
 		// Connect to to TronServer
 		this.hostname = hostname;
 		this.port = port;
+		this.playerName = name;
 		
 		try {
 			Socket s = new Socket(hostname, port);
@@ -168,11 +169,13 @@ public class TronPlayer extends JFrame implements Runnable {
 	
 	public static void main(String [] args) {
 		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter your name:");
+		String name = scan.nextLine();
 		System.out.print("What is the name/IP of the server? ");
 		String hostname = scan.nextLine();
 		System.out.print("What is the port? ");
 		int port = scan.nextInt();
-		TronPlayer tp = new TronPlayer(hostname, port);
+		TronPlayer tp = new TronPlayer(hostname, port, name);
 	}
 
 }

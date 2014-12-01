@@ -44,11 +44,6 @@ public class loginPage extends JPanel {
 		this.setSize(800, 800);
 		this.pw = pw;
 		this.parentPanel = parent;
-//		this.setLayout(new BorderLayout());
-//		cards = new JPanel();
-//		cards.setLayout(new CardLayout());
-//		loginPanel = new JPanel();
-//		newAccountPanel = new JPanel();
 		
 		passwordField = new JPasswordField(10);
 		usernameField = new JTextField(10);
