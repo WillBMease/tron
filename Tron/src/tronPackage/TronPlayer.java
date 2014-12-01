@@ -23,6 +23,7 @@ public class TronPlayer extends JFrame implements Runnable {
 	private TheGrid grid;
 	private JPanel mainPanel;
 	private JPanel loginPage;
+	private JPanel newAccountPage;
 	private HomePage hp;
 	
 	private Thread thisPlayer;
@@ -77,6 +78,8 @@ public class TronPlayer extends JFrame implements Runnable {
 		loginPage.setVisible(true);
 		loginPage.add(test);
 		
+		newAccountPage = new newAccountPage(pw, mainPanel);
+		
 		// HomePage panel
 		hp = new HomePage(br, pw, this);
 		
@@ -93,6 +96,7 @@ public class TronPlayer extends JFrame implements Runnable {
 		grid = new TheGrid(pw);
 		
 		mainPanel.add(loginPage, "loginPage");
+		mainPanel.add(newAccountPage, "newAccountPage");
 		mainPanel.add(hp, "homePage");
 		mainPanel.add(grid, "grid");
 		
