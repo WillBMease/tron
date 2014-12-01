@@ -34,7 +34,7 @@ public class TronServer {
 			e.printStackTrace();
 		}
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/tron", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/tron", "root", "password");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
