@@ -69,11 +69,12 @@ public class GameMenu extends JPanel {
 		String temp = chatMsgs.getText();
 		if (temp.equals("**No Chat Messages**")){
 			temp = chatField.getText();
-			chatMsgs.setText(temp);
+			chatMsgs.setText("<html>" + temp + "</html>");
 		}
 		else{
-			temp += chatField.getText();
-			chatMsgs.setText(temp);
+			temp = chatField.getText();
+			System.out.println(chatMsgs.getText());
+			chatMsgs.setText("<html>" + chatMsgs.getText().substring(6,chatMsgs.getText().length()-7) + "<br>" + temp + "</html>");
 		}
 		temp = "3 CHAT " + chatField.getText();
 		this.pw.println(temp);

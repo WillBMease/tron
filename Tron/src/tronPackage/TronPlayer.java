@@ -163,12 +163,18 @@ public class TronPlayer extends JFrame implements Runnable {
 				{
 					System.out.println("Player " + line);
 					String temp = line.replace("3 CHAT", "");
-					hp.gm.chatMsgs.setText(temp);
+					printthisline();
+					hp.gm.chatMsgs.setText("<html>" + hp.gm.chatMsgs.getText().substring(7,hp.gm.chatMsgs.getText().length()-7) + "<br>" + temp + "</html>");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void printthisline(){
+		
+					System.out.println(hp.gm.chatMsgs.getText());
 	}
 	
 	public static void main(String [] args) {
