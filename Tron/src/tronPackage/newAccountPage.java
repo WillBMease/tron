@@ -3,7 +3,13 @@ package tronPackage;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -50,7 +56,7 @@ public class newAccountPage extends JPanel {
 		createAccountButton = new JButton("Create");
 		cancelCreateAccountButton = new JButton("Cancel");
 				
-		createAccountButton.addActionListener(new newAccountPageButton(tp, parentPanel, newUsernameField));
+		createAccountButton.addActionListener(new newAccountPageButton(tp, parentPanel, newUsernameField, newPasswordField, confirmPasswordField));
 		
 		cancelCreateAccountButton.addActionListener(new ActionListener() {
 
@@ -83,6 +89,32 @@ public class newAccountPage extends JPanel {
 		this.add(cancelCreateAccountButton);
 	}
 
+	static boolean checkIfNameExists(String name){
+		try{
+			FileReader fr = new FileReader("./log.txt");
+			BufferedReader br = new BufferedReader(fr);
+			boolean nameFound = false;
+			String line = br.readLine();
+			String array[] = null;
+
+			while(line != null){
+				array = line.split(":");
+				if(array[0].equals(name)){
+					nameFound = true;
+					break;
+				}
+				line = br.readLine();
+			}
+
+			br.close();
+			fr.close();
+			return nameFound;
+		}catch(IOException ioe){
+
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -98,18 +130,39 @@ class newAccountPageButton implements ActionListener {
 	TronPlayer tp;
 	JPanel parent;
 	JTextField usernameField;
+	JPasswordField password;
+	JPasswordField confirmPassword;
 
-	newAccountPageButton(TronPlayer tp, JPanel parent, JTextField username){
+	newAccountPageButton(TronPlayer tp, JPanel parent, JTextField username, JPasswordField password, JPasswordField confirmPasswordField){
 		super();
 		this.tp = tp;
 		this.parent = parent;
 		this.usernameField = username;
+		this.password = password;
+		this.confirmPassword = confirmPasswordField;
 	}
 
 	public void actionPerformed(ActionEvent ae){
-		CardLayout c1 = (CardLayout) parent.getLayout();
-		tp.setPlayerName(usernameField.getText());
-		c1.show(parent, "homePage");
+		if(usernameField.getText().equals("")){
+			return;
+		}
+		if(!(new String(password.getPassword()).equals(new String(confirmPassword.getPassword())))){
+			return;
+		}
+		if(!newAccountPage.checkIfNameExists(usernameField.getText())){
+			try{
+				FileWriter fw = new FileWriter("./log.txt", true);
+				PrintWriter pw = new PrintWriter(fw);
+				pw.println(usernameField.getText() + ":" + new String(password.getPassword()) + ":0:0");
+				pw.close();
+				fw.close();
+			}catch(IOException ioe){
+
+			}
+			CardLayout c1 = (CardLayout) parent.getLayout();
+			tp.setPlayerName(usernameField.getText());
+			c1.show(parent, "homePage");
+		}
 
 		//left over from last implemented button. didn't want to delete incase we wanted it later
 
