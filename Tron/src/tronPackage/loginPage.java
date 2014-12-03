@@ -84,7 +84,7 @@ public class loginPage extends JPanel {
 		
 		this.addComponents();
 
-		backgroundImage = new ImageIcon(".\\loginPageBackground.jpg");
+		backgroundImage = new ImageIcon("../loginPageBackground.jpg");
 		
 		JLabel image = new JLabel(backgroundImage);
 		this.add(image);
