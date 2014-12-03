@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class GameMenu extends JPanel {
 	private TronPlayer tp;
@@ -50,6 +52,9 @@ public class GameMenu extends JPanel {
 		add(chatMsgs);
 		add(chatField);
 		add(sendChat);
+		
+		JLabel image = new JLabel(new ImageIcon("../loginPageBackground.jpg"));
+		this.add(image);
 		
 	}
 	public void gameRequest()

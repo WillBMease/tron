@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -85,6 +86,10 @@ public class newAccountPage extends JPanel {
 		});
 		
 		this.addComponents();
+
+		
+		JLabel image = new JLabel(new ImageIcon("../loginPageBackground.jpg"));
+		this.add(image);
 	}
 	
 	void addComponents(){

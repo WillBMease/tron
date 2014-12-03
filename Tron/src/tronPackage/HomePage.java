@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class HomePage extends JPanel {
 	GameMenu gm;
@@ -19,6 +21,9 @@ public class HomePage extends JPanel {
 		
 		em = new EastMenu();
 		add(em, BorderLayout.EAST);
+		
+		JLabel image = new JLabel(new ImageIcon("../loginPageBackground.jpg"));
+		this.add(image);
 		
 	}
 }
