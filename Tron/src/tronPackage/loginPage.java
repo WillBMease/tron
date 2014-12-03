@@ -39,7 +39,7 @@ public class loginPage extends JPanel {
 	private PrintWriter pw;
 	
 	
-	public loginPage(PrintWriter pw, JPanel parent) {
+	public loginPage(PrintWriter pw, JPanel parent, TronPlayer tp) {
 		super();
 		this.setSize(800, 800);
 		this.pw = pw;
@@ -53,16 +53,7 @@ public class loginPage extends JPanel {
 		loginButton = new JButton("Login");
 		newAccountButton = new JButton("Create New Account");
 		
-		loginButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//TODO: check password and username against database
-				//TODO: redirect to game page if login successful
-				CardLayout c1 = (CardLayout) parentPanel.getLayout();
-				c1.show(parentPanel, "homePage");
-			}
-		});
+		loginButton.addActionListener(new loginPageButton(tp, parentPanel, usernameField));
 		
 		newAccountButton.addActionListener(new ActionListener() {
 			
@@ -110,8 +101,30 @@ public class loginPage extends JPanel {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 800);
-		frame.add(new loginPage(null, null));
+		frame.add(new loginPage(null, null, null));
 		frame.setVisible(true);
 	}
 
+}
+
+
+
+class loginPageButton implements ActionListener {
+
+	TronPlayer tp;
+	JPanel parent;
+	JTextField usernameField;
+
+	loginPageButton(TronPlayer tp, JPanel parent, JTextField username){
+		super();
+		this.tp = tp;
+		this.parent = parent;
+		this.usernameField = username;
+	}
+
+	public void actionPerformed(ActionEvent ae){
+		CardLayout c1 = (CardLayout) parent.getLayout();
+		tp.setPlayerName(usernameField.getText());
+		c1.show(parent, "homePage");
+	}
 }

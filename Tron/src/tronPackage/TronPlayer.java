@@ -42,17 +42,19 @@ public class TronPlayer extends JFrame implements Runnable {
 	public String getPlayerName() {
 		return playerName;
 	}
+	public void setPlayerName(String name){
+		this.playerName = name;
+	}
 	public void setGameOn(boolean b) {
 		gameOn = true;
 	}
-	public TronPlayer(String hostname, int port, String name) {
+	public TronPlayer(String hostname, int port) {
 		super("Tron");
 		
 		setFocusable(true);
 		// Connect to to TronServer
 		this.hostname = hostname;
 		this.port = port;
-		this.playerName = name;
 		
 		try {
 			Socket s = new Socket(hostname, port);
@@ -76,11 +78,11 @@ public class TronPlayer extends JFrame implements Runnable {
 		JButton test = new JButton("TEST");
 		
 		// The first page the player should see, note that visibility is set true
-		loginPage = new loginPage(pw, mainPanel);
+		loginPage = new loginPage(pw, mainPanel, this);
 		loginPage.setVisible(true);
 		loginPage.add(test);
 		
-		newAccountPage = new newAccountPage(pw, mainPanel);
+		newAccountPage = new newAccountPage(pw, mainPanel, this);
 		
 		// HomePage panel
 		hp = new HomePage(br, pw, this);
@@ -175,13 +177,11 @@ public class TronPlayer extends JFrame implements Runnable {
 
 	public static void main(String [] args) {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter your name:");
-		String name = scan.nextLine();
 		System.out.print("What is the name/IP of the server? ");
 		String hostname = scan.nextLine();
 		System.out.print("What is the port? ");
 		int port = scan.nextInt();
-		TronPlayer tp = new TronPlayer(hostname, port, name);
+		TronPlayer tp = new TronPlayer(hostname, port);
 	}
 
 }

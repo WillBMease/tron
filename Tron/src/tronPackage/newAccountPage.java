@@ -29,12 +29,14 @@ public class newAccountPage extends JPanel {
 	
 	JButton createAccountButton;
 	JButton cancelCreateAccountButton;
+	TronPlayer tp;
 	
-	public newAccountPage(PrintWriter pw, JPanel parent) {
+	public newAccountPage(PrintWriter pw, JPanel parent, TronPlayer tp) {
 		super();
 		this.setSize(800,800);
 		this.pw = pw;
 		this.parentPanel = parent;
+		this.tp = tp;
 		
 		
 		newUsernameLabel = new JLabel("Username");
@@ -48,29 +50,7 @@ public class newAccountPage extends JPanel {
 		createAccountButton = new JButton("Create");
 		cancelCreateAccountButton = new JButton("Cancel");
 				
-		createAccountButton.addActionListener(new ActionListener() {
-					
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//TODO: Check database for existing user with username
-				boolean usernameExists = false;
-				if(usernameExists) {
-					
-				} else if(Arrays.equals(newPasswordField.getPassword(), confirmPasswordField.getPassword()) && newPasswordField.getPassword().length > 8) {
-					String username = newUsernameField.getText();
-					char[] password = newPasswordField.getPassword();
-					//TODO: create new User in database
-					
-					newUsernameField.setText("");
-					newPasswordField.setText("");
-					confirmPasswordField.setText("");
-					CardLayout c1 = (CardLayout) parentPanel.getLayout();
-					c1.show(parentPanel, "loginPage");
-				} else {
-					System.out.println("INVALID PASSWORD");
-				}
-			}
-		});
+		createAccountButton.addActionListener(new newAccountPageButton(tp, parentPanel, newUsernameField));
 		
 		cancelCreateAccountButton.addActionListener(new ActionListener() {
 
@@ -108,4 +88,47 @@ public class newAccountPage extends JPanel {
 
 	}
 
+}
+
+
+
+
+class newAccountPageButton implements ActionListener {
+
+	TronPlayer tp;
+	JPanel parent;
+	JTextField usernameField;
+
+	newAccountPageButton(TronPlayer tp, JPanel parent, JTextField username){
+		super();
+		this.tp = tp;
+		this.parent = parent;
+		this.usernameField = username;
+	}
+
+	public void actionPerformed(ActionEvent ae){
+		CardLayout c1 = (CardLayout) parent.getLayout();
+		tp.setPlayerName(usernameField.getText());
+		c1.show(parent, "homePage");
+
+		//left over from last implemented button. didn't want to delete incase we wanted it later
+
+		/*//TODO: Check database for existing user with username
+				boolean usernameExists = false;
+				if(usernameExists) {
+					
+				} else if(Arrays.equals(newPasswordField.getPassword(), confirmPasswordField.getPassword()) && newPasswordField.getPassword().length > 8) {
+					String username = newUsernameField.getText();
+					char[] password = newPasswordField.getPassword();
+					//TODO: create new User in database
+					
+					newUsernameField.setText("");
+					newPasswordField.setText("");
+					confirmPasswordField.setText("");
+					CardLayout c1 = (CardLayout) parentPanel.getLayout();
+					c1.show(parentPanel, "loginPage");
+				} else {
+					System.out.println("INVALID PASSWORD");
+				}*/
+	}
 }
