@@ -58,6 +58,8 @@ public class TronPlayer extends JFrame implements Runnable {
 			Socket s = new Socket(hostname, port);
 			this.pw = new PrintWriter(s.getOutputStream());
 			this.br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			this.pw.println("NAME:" + getPlayerName());
+			this.pw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -161,10 +163,9 @@ public class TronPlayer extends JFrame implements Runnable {
 				}
 				else if(line.contains("CHAT"))
 				{
-					System.out.println("Player " + line);
-					String temp = line.replace("3 CHAT", "");
-					printthisline();
-					hp.gm.chatMsgs.setText("<html>" + hp.gm.chatMsgs.getText().substring(7,hp.gm.chatMsgs.getText().length()-7) + "<br>" + temp + "</html>");
+					String temp = line.substring(7);
+					System.out.println("Request?: " +temp);
+					hp.gm.chatMsgs.setText("<html>" + temp.substring(6,temp.length()-7) + "</html>");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -172,11 +173,6 @@ public class TronPlayer extends JFrame implements Runnable {
 		}
 	}
 
-	public void printthisline(){
-		
-					System.out.println(hp.gm.chatMsgs.getText());
-	}
-	
 	public static void main(String [] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter your name:");

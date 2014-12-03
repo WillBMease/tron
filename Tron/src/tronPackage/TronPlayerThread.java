@@ -11,6 +11,7 @@ public class TronPlayerThread extends Thread {
 	private Socket s;
 	private TronServer ts;
 	private PrintWriter pw;
+	private String playerName;
 	public TronPlayerThread(Socket s, TronServer ts) {
 		this.s = s;
 		this.ts = ts;
@@ -43,8 +44,12 @@ public class TronPlayerThread extends Thread {
 		/* calls appropriate functions on the server
 		server deals with how to send appropriate replies 
 		and to whom to send replies to */
-		
-		if (line.contains("1")) {
+		System.out.println(line);
+		if(line.startsWith("NAME:")){
+			System.out.println("In name!");
+			this.playerName = line.substring(6);
+		}
+		else if (line.contains("1")) {
 			ts.GameMessage(line,this);
 		}
 		else if (line.contains("2")) {
@@ -53,6 +58,10 @@ public class TronPlayerThread extends Thread {
 		else if (line.contains("3")) {
 			ts.ChatMessage(line,this);
 		}
+	}
+
+	public String getPlayerName(){
+		return this.playerName;
 	}
 }
 

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 
 public class GameMenu extends JPanel {
 	private TronPlayer tp;
@@ -42,6 +45,8 @@ public class GameMenu extends JPanel {
 		});
 		
 		chatMsgs = new JLabel("**No Chat Messages**");
+		chatMsgs.setOpaque(true);
+		chatMsgs.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		chatField = new JTextField(20);
 		sendChat = new JButton("Send Message");
 		sendChat.addActionListener(new ActionListener() {
@@ -69,14 +74,15 @@ public class GameMenu extends JPanel {
 		String temp = chatMsgs.getText();
 		if (temp.equals("**No Chat Messages**")){
 			temp = chatField.getText();
-			chatMsgs.setText("<html>" + temp + "</html>");
+			chatMsgs.setText("<html>" + tp.getPlayerName() + ": " + temp + "</html>");
+			System.out.println(chatMsgs.getText());
 		}
 		else{
 			temp = chatField.getText();
 			System.out.println(chatMsgs.getText());
-			chatMsgs.setText("<html>" + chatMsgs.getText().substring(6,chatMsgs.getText().length()-7) + "<br>" + temp + "</html>");
+			chatMsgs.setText("<html>" + chatMsgs.getText().substring(6,chatMsgs.getText().length()-7) + "<br>" + tp.getPlayerName() + ": " + temp + "</html>");
 		}
-		temp = "3 CHAT " + chatField.getText();
+		temp = "3 CHAT " + chatMsgs.getText();
 		this.pw.println(temp);
 		this.pw.flush();
 	}

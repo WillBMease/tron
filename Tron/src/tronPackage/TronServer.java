@@ -113,7 +113,7 @@ public class TronServer {
 	}
 	public void ChatMessage(String line, TronPlayerThread tpt) {
 		if (line.contains("CHAT")) {
-			chatStorage += line.replace("1 CHAT", "");
+			chatStorage = line;
 			System.out.println(chatStorage);
 			for(int i = 0; i < tptVector.size();i++)
 			{
